@@ -12,8 +12,8 @@ This directory holds the Spequa Spec Plan issue template for `SALT-Platform/whis
 ## Canonical source and provenance
 
 - **Canonical file:** [`SALT-Platform/salt-platform` `.github/ISSUE_TEMPLATE/spec-plan.md`](https://github.com/SALT-Platform/salt-platform/blob/main/.github/ISSUE_TEMPLATE/spec-plan.md) (v1.1)
-- **sha256 of the canonical file at the last sync:** `f593b039a1814dbebbfaa4b00518adc13192114ce9f7442f21879c2f4e6fca4a`
-- **sha256 of this repository's `spec-plan.md` at the last sync:** `e3542cb6a0e585e434efa727a1786b0debca4970fdf78903b2ea6c7f84b03f2f`
+- **sha256 of the canonical file at the last sync:** `bf8dfb0a9d54587dc531d9b27c6b6d006a1e044648220670379617105963875c`
+- **sha256 of this repository's `spec-plan.md` at the last sync:** `8045cb0d6f872112a2f3841c666016cacbf972e2bddbb461af235d186261ebfc`
 - **Renderer:** `scripts/spec-plan-template/spec_plan_template.py` in `SALT-Platform/salt-platform` renders every copy, the canonical one included, from `scripts/spec-plan-template/spec-plan.tmpl.md` and the repository's own files.
 - **History:** v1.0 from [salt-platform PR #1596](https://github.com/SALT-Platform/salt-platform/pull/1596); v1.1 (Markdown tables, task lists, visible placeholders, fenced `crp_contract`, gap-remediation template, repository gate profile) from [salt-platform PR #2719](https://github.com/SALT-Platform/salt-platform/pull/2719).
 - **Standard:** SPEQUA SDD KIT (SALT-internal Confluence; request access from the accountable owner)
@@ -44,11 +44,11 @@ Run from the repository root (bash, `gh` authenticated):
 ```bash
 # 1. Local copy unchanged since the last sync (hashes the committed file, so local line-ending settings do not matter):
 git show HEAD:.github/ISSUE_TEMPLATE/spec-plan.md | sha256sum
-# expected: e3542cb6a0e585e434efa727a1786b0debca4970fdf78903b2ea6c7f84b03f2f
+# expected: 8045cb0d6f872112a2f3841c666016cacbf972e2bddbb461af235d186261ebfc
 
 # 2. Canonical file unchanged upstream since the last sync:
 gh api "repos/SALT-Platform/salt-platform/contents/.github/ISSUE_TEMPLATE/spec-plan.md?ref=main" --jq '.content' | base64 -d | sha256sum
-# expected: f593b039a1814dbebbfaa4b00518adc13192114ce9f7442f21879c2f4e6fca4a
+# expected: bf8dfb0a9d54587dc531d9b27c6b6d006a1e044648220670379617105963875c
 ```
 
 If check 1 differs, someone edited the local copy: restore it or re-render it. If check 2 differs, the canonical file changed: re-render this copy with the renderer and update both hashes above in the same pull request.

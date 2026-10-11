@@ -370,7 +370,7 @@ Derived on 2026-10-11 from the files on `main`. The gates below refer to these f
 | Fact | Value |
 | --- | --- |
 | Stack | Python |
-| Check commands (lint, type-check, build) | none defined |
+| Check commands (as defined by the repository) | none defined |
 | Test command | none defined |
 | Required status checks on `main` | none |
 | GitHub Actions on pull requests to `main` | none |
@@ -388,7 +388,7 @@ Derived on 2026-10-11 from the files on `main`. The gates below refer to these f
 - [ ] Feature branch `NNN-<kebab-case-title>` created off `main`, the default branch (if the repository's contributing guide names an integration branch such as `development` or `staging`, branch from and target that branch instead)
 - [ ] Every task in `tasks.md` closed with an artifact reference
 - [ ] This repository defines no lint, type-check or build command (§19.0): the PR body states how the change was checked, with the command and its output
-- [ ] No CI runs on pull requests to `main` (§19.0): the output of the §19.0 commands on the PR head is pasted into the PR body
+- [ ] No CI runs on pull requests to `main` and §19.0 lists no commands: the PR body records how the change was checked (the commands run and their output), or `N/A — <reason> — <evidence link>`
 - [ ] ⟨conditional: the change adds a deployment⟩ No deployment configuration was detected (§19.0); a deployment the change adds succeeds in a non-production environment first
 - [ ] No new lint warnings or suppressions without justification
 - [ ] Runtime compatibility confirmed for the runtime version this repository's CI or documentation uses (none is pinned in its manifests; state the version in the PR body)
