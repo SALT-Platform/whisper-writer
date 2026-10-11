@@ -1,6 +1,6 @@
 ---
 name: Spec Plan
-about: "Spequa Roadmap Spec Plan a feature must satisfy end-to-end before its PR merges and ships. Every unchecked box is a blocker unless tagged STRETCH or N/A."
+about: "Spequa Roadmap Spec Plan: the end-to-end requirements a feature must meet before its PR merges and ships. Unchecked boxes block unless tagged STRETCH or N/A."
 title: "[Spec-NNN] <kebab-case-title>"
 labels: enhancement, spequa:in-flight, roadmap
 assignees: equanaut-sha-w1
@@ -378,6 +378,7 @@ Derived on 2026-10-11 from the files on `main`. The gates below refer to these f
 | Other CI / build pipelines | none detected |
 | Dependency manifests | `requirements.txt` |
 | Environment example file | none |
+| Tracked environment files (must hold no real secrets) | none |
 | Deployment configuration | none detected |
 | Runtime pins | none pinned in the manifests |
 | User interface | desktop GUI (Qt/Tk) |
@@ -452,7 +453,7 @@ Derived on 2026-10-11 from the files on `main`. The gates below refer to these f
 
 ## 20. PR Handoff Block — `crp_contract`
 
-Prepare this block in `specs/NNN-<kebab-case-title>/` while §0–§19 are completed, then paste it into the PR body when the PR is opened. Every verdict starts as `PENDING` and every result field as a quoted placeholder, so an untouched copy can never read as a passing certification. Keep keys, nesting and quotes exactly as shown; the reviewer in §24 compares this block with this issue and the spec directory.
+Prepare this block in `specs/NNN-<kebab-case-title>/` while §0–§19 are completed, then paste it into the PR body before the PR is marked ready for review (a draft PR may open earlier). Every verdict starts as `PENDING` and every result field as a quoted placeholder, so an untouched copy can never read as a passing certification. Keep keys, nesting and quotes exactly as shown; the reviewer in §24 compares this block with this issue and the spec directory.
 
 ```yaml
 crp_contract:
@@ -493,11 +494,11 @@ crp_contract:
     - jira_epic: "<KEY>"
     - github_spec_dir: "specs/NNN-<kebab-case-title>/"
     - comms_channel: "<salt-platform internal comms channel | N/A (reason)>"
-  hlb_flags: []
+  hlb_flags: "<[] if none, else the list of HLB flags>"
   change_requests_open: "<count>"
 ```
 
-- [ ] `crp_contract` block completed (no `PENDING` verdict, no placeholder) and pasted into the PR body when the PR is opened
+- [ ] `crp_contract` block completed (no `PENDING` verdict, no placeholder) and pasted into the PR body before the PR is marked ready for review
 - [ ] `agent-autonomy` label applied if no HLB flags; otherwise `human-loop-break` applied
 
 ## 21. Anti-Patterns That Fail This Template (Auto-Reject)
@@ -549,7 +550,7 @@ Each was a real failure on a real run. The template already prevents each one.
 
 - The reviewer evaluates all twelve CRP package gates (G1–G12, §17) and every §19 gate as pass/fail predicates against the PR head, and checks the `crp_contract` block against this issue. In Claude Code the review runs with `/spequa.13-code-review` from the `salt-spequa-commands` plugin; that command does not parse `crp_contract` automatically, so the reviewer compares the block by hand.
 - If every gate passes, the reviewer approves. If any gate fails, the reviewer requests changes with per-gate detail and the PR goes back to the repair ladder (fix, re-run the §19.0 checks, `/spequa.4-clarify` for unclear requirements). The pipeline continues to the next PR regardless.
-- Merge only when every gate above is checked and the repository's required checks and reviews on `main` pass. Merge command: **Squash and Merge**. Never Rebase or Create-Merge-Commit for spec branches.
+- Merge only when every pre-merge gate (§0–§20) is checked and the repository's required checks and reviews on `main` pass; §23 is completed after merge. Merge command: **Squash and Merge**. Never Rebase or Create-Merge-Commit for spec branches.
 
 ## Related links
 

@@ -12,8 +12,8 @@ This directory holds the Spequa Spec Plan issue template for `SALT-Platform/whis
 ## Canonical source and provenance
 
 - **Canonical file:** [`SALT-Platform/salt-platform` `.github/ISSUE_TEMPLATE/spec-plan.md`](https://github.com/SALT-Platform/salt-platform/blob/main/.github/ISSUE_TEMPLATE/spec-plan.md) (v1.1)
-- **sha256 of the canonical file at the last sync:** `bf8dfb0a9d54587dc531d9b27c6b6d006a1e044648220670379617105963875c`
-- **sha256 of this repository's `spec-plan.md` at the last sync:** `8045cb0d6f872112a2f3841c666016cacbf972e2bddbb461af235d186261ebfc`
+- **sha256 of the canonical file at the last sync:** `34aac3fa766522b2b7bbcac382c095bce5f6aeaf22d55e004980df9abd26b569`
+- **sha256 of this repository's `spec-plan.md` at the last sync:** `bb1cbd13f9773899ca0f1ef71741ee9fc471441e4cc164cb69720c818536f7ca`
 - **Renderer:** `scripts/spec-plan-template/spec_plan_template.py` in `SALT-Platform/salt-platform` renders every copy, the canonical one included, from `scripts/spec-plan-template/spec-plan.tmpl.md` and the repository's own files.
 - **History:** v1.0 from [salt-platform PR #1596](https://github.com/SALT-Platform/salt-platform/pull/1596); v1.1 (Markdown tables, task lists, visible placeholders, fenced `crp_contract`, gap-remediation template, repository gate profile) from [salt-platform PR #2719](https://github.com/SALT-Platform/salt-platform/pull/2719).
 - **Standard:** SPEQUA SDD KIT (SALT-internal Confluence; request access from the accountable owner)
@@ -44,14 +44,14 @@ Run from the repository root (bash, `gh` authenticated):
 ```bash
 # 1. Local copy unchanged since the last sync (hashes the committed file, so local line-ending settings do not matter):
 git show HEAD:.github/ISSUE_TEMPLATE/spec-plan.md | sha256sum
-# expected: 8045cb0d6f872112a2f3841c666016cacbf972e2bddbb461af235d186261ebfc
+# expected: bb1cbd13f9773899ca0f1ef71741ee9fc471441e4cc164cb69720c818536f7ca
 
 # 2. Canonical file unchanged upstream since the last sync:
 gh api "repos/SALT-Platform/salt-platform/contents/.github/ISSUE_TEMPLATE/spec-plan.md?ref=main" --jq '.content' | base64 -d | sha256sum
-# expected: bf8dfb0a9d54587dc531d9b27c6b6d006a1e044648220670379617105963875c
+# expected: 34aac3fa766522b2b7bbcac382c095bce5f6aeaf22d55e004980df9abd26b569
 ```
 
-If check 1 differs, someone edited the local copy: restore it or re-render it. If check 2 differs, the canonical file changed: re-render this copy with the renderer and update both hashes above in the same pull request.
+If check 1 differs, someone edited the local copy: restore it or re-render it. If check 2 differs, open the canonical file first: re-render this copy (and update both hashes above in the same pull request) only when the canonical is newer than this copy. A canonical that is older, for example salt-platform `main` before the v1.1 change above merged, means the mismatch is expected: change nothing, because re-rendering would downgrade this copy.
 
 To re-render, from a `SALT-Platform/salt-platform` checkout (Python 3.10+ with PyYAML):
 
@@ -59,13 +59,13 @@ To re-render, from a `SALT-Platform/salt-platform` checkout (Python 3.10+ with P
 python scripts/spec-plan-template/spec_plan_template.py render \
   --repo SALT-Platform/whisper-writer --local <path to a checkout of this repository> \
   --default-branch <default branch> --visibility <PRIVATE|PUBLIC> \
-  --required-check "<required status check>" \
+  --required-check "<required status check>" --label "<existing label>" \
   --profile-date <YYYY-MM-DD> --v11-pr "<link to the change>" \
   --canonical .github/ISSUE_TEMPLATE/spec-plan.md --out <output dir>
 python scripts/spec-plan-template/spec_plan_template.py validate <output dir>/spec-plan.md <output dir>/README.md
 ```
 
-Repeat `--required-check` for each status check the default branch requires.
+Repeat `--required-check` for each status check the default branch requires. Repeat `--label` for each of the three template labels that exists (`gh label list`); without `--label` the README states that the labels were not checked.
 
 ## Governance
 
